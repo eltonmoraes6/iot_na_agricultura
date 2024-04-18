@@ -1,4 +1,5 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid, Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { useEffect } from 'react';
@@ -6,8 +7,18 @@ import { toast } from 'react-toastify';
 import FullScreenLoader from '../components/FullScreenLoader';
 import Message from '../components/Message';
 import SensorDataBarChart from '../components/sensor/bar';
+import HumidityLineChart from '../components/sensor/humidity';
+import TemperatureLineChart from '../components/sensor/temperature';
 import { useGetAllSensorsQuery } from '../redux/api/sensorApi';
 import { ISensorResponse } from '../redux/api/types';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 const columns: GridColDef<ISensorResponse>[] = [
   { field: 'id', headerName: 'ID', width: 300 },
@@ -72,6 +83,25 @@ const HomePage = () => {
       ) : (
         <>
           <Box sx={{ height: 400, width: '100%' }}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={6}>
+                <Item>
+                  {' '}
+                  <TemperatureLineChart />
+                </Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item>
+                  {' '}
+                  <HumidityLineChart />
+                </Item>
+              </Grid>
+            </Grid>
+
             <SensorDataBarChart sensorData={sensors} />
 
             <DataGrid

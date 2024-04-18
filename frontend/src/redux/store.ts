@@ -5,6 +5,7 @@ import { postApi } from './api/postApi';
 import { sensorApi } from './api/sensorApi';
 import { userApi } from './api/userApi';
 import postReducer from './features/postSlice';
+import sensorReducer from './features/sensorSlice';
 import userReducer from './features/userSlice';
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     [sensorApi.reducerPath]: sensorApi.reducer,
     userState: userReducer,
     postState: postReducer,
+    sensorState: sensorReducer,
   },
   devTools: import.meta.env.VITE_NODE_ENV === 'development',
   middleware: (getDefaultMiddleware) =>

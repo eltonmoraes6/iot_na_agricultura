@@ -67,6 +67,9 @@ const Header = () => {
               3Claves
             </Typography>
             <Box display='flex' sx={{ ml: 'auto' }}>
+              <LoadingButton onClick={() => setOpenPostModal(true)}>
+                Create Post
+              </LoadingButton>
               {!user && (
                 <>
                   <LoadingButton
@@ -82,11 +85,11 @@ const Header = () => {
               )}
               {user && (
                 <>
-                  <LoadingButton onClick={onLogoutHandler} loading={isLoading}>
-                    Logout
-                  </LoadingButton>
                   <LoadingButton onClick={() => navigate('/profile')}>
                     Profile
+                  </LoadingButton>
+                  <LoadingButton onClick={onLogoutHandler} loading={isLoading}>
+                    Logout
                   </LoadingButton>
                 </>
               )}
@@ -98,9 +101,6 @@ const Header = () => {
                   Admin
                 </LoadingButton>
               )}
-              <LoadingButton onClick={() => setOpenPostModal(true)}>
-                Create Post
-              </LoadingButton>
             </Box>
           </Toolbar>
         </Container>
