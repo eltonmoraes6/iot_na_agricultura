@@ -13,6 +13,8 @@ import { AppDataSource } from './utils/data-source';
 import redisClient from './utils/connectRedis';
 import validateEnv from './utils/validateEnv';
 
+import './services/arduino.service';
+
 AppDataSource.initialize()
   .then(async () => {
     // VALIDATE ENV

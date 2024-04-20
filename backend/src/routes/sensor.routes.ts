@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   findSeasonByHandler,
+  getDailyAndPeriodAveragesHandler,
   indexHandler,
   registerSensorHandler,
 } from '../controllers/sensor.controller';
@@ -24,5 +25,13 @@ router.get('/:season', deserializeUser, requireUser, findSeasonByHandler);
 
 // // Refresh access token
 // router.get('/delete', refreshAccessTokenHandler);
+
+// Add a new route for calculating averages
+router.get(
+  '/info/averages',
+  deserializeUser,
+  requireUser,
+  getDailyAndPeriodAveragesHandler
+);
 
 export default router;

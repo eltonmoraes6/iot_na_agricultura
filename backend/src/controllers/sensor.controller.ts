@@ -4,6 +4,7 @@ import {
   createSensor,
   findSensor,
   findSensorBySeason,
+  getDailyAndPeriodAverages,
 } from '../services/sensors.service';
 
 export const indexHandler = async (
@@ -77,5 +78,22 @@ export const registerSensorHandler = async (
       });
     }
     next(err);
+  }
+};
+
+export const getDailyAndPeriodAveragesHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const averages = await getDailyAndPeriodAverages();
+
+    res.status(200).json({
+      status: 'success',
+      data: averages,
+    });
+  } catch (error) {
+    next(error);
   }
 };
