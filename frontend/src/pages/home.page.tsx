@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import FullScreenLoader from '../components/FullScreenLoader';
 import Message from '../components/Message';
+import HumidityGauge from '../components/sensor/HumidityGauge';
+import TemperatureGauge from '../components/sensor/TemperatureGauge';
 import SensorDataBarChart from '../components/sensor/bar';
 import HumidityLineChart from '../components/sensor/humidity';
 import TemperatureLineChart from '../components/sensor/temperature';
@@ -98,6 +100,25 @@ const HomePage = () => {
                 <Item>
                   {' '}
                   <HumidityLineChart />
+                </Item>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={6}>
+                <Item>
+                  {' '}
+                  <TemperatureGauge />
+                </Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item>
+                  {' '}
+                  <HumidityGauge />
                 </Item>
               </Grid>
             </Grid>

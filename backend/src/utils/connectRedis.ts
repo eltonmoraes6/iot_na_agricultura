@@ -1,9 +1,24 @@
+require('dotenv').config();
+import config from 'config';
 import { createClient } from 'redis';
 
-const redisUrl = 'redis://192.168.0.121:6379';
-
-console.log(process.env.redisHost, ':', process.env.redisPort);
+console.log(
+  'process.env.redisHost: ',
+  process.env.redisHost,
+  ':',
+  process.env.redisPort
+);
 // const url = `redis://${process.env.redisHost}:${process.env.redisPort}`;
+
+const redisConfig = config.get<{
+  host: string;
+  port: number;
+  // username: string;
+  // password: string;
+  // database: string;
+}>('redisConfig');
+
+const redisUrl = `${redisConfig.host}:${redisConfig.port}`;
 
 const redisClient = createClient({
   url: redisUrl,
