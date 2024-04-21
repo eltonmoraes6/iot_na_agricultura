@@ -1,16 +1,20 @@
 import { ReadlineParser } from '@serialport/parser-readline';
+import config from 'config';
 import { SerialPort, SerialPortOptions } from 'serialport';
+require('dotenv').config();
 
-// COM port where Arduino is connected
-const comPort: string = 'COM3';
-const baudRate: number = 9600;
+const redisConfig = config.get<{
+  baudRate: number;
+  comPort: string;
+}>('serialPortConfig');
 
 // Serial port connection options
 const serialPortOptions: SerialPortOptions = {
-  path: comPort,
-  baudRate,
+  path: redisConfig.comPort,
+  baudRate: parseInt(redisConfig.baudRate),
 };
 
+console.log('redisConfig.baudRate ====>', redisConfig.baudRate);
 // Connect to Arduino via serial port
 const arduinoPort: SerialPort = new SerialPort(serialPortOptions);
 
@@ -21,7 +25,7 @@ arduinoPort.pipe(parser);
 
 // Handle Arduino port open event
 arduinoPort.on('open', () => {
-  console.log(`Connected to Arduino on ${comPort}`);
+  console.log(`Connected to Arduino on ${redisConfig.comPort}`);
 });
 
 // Listen for data from Arduino

@@ -17,6 +17,11 @@ export default {
     // database: 'REDIS_DB',
   },
 
+  serialPortConfig: {
+    baudRate: 'BAUD_RATE',
+    comPort: 'COM_PORT',
+  },
+
   accessTokenPrivateKey: 'JWT_ACCESS_TOKEN_PRIVATE_KEY',
   accessTokenPublicKey: 'JWT_ACCESS_TOKEN_PUBLIC_KEY',
   refreshTokenPrivateKey: 'JWT_REFRESH_TOKEN_PRIVATE_KEY',
