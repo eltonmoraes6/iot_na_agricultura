@@ -67,9 +67,9 @@ const Header = () => {
               3Claves
             </Typography>
             <Box display='flex' sx={{ ml: 'auto' }}>
-              <LoadingButton onClick={() => setOpenPostModal(true)}>
+              {/* <LoadingButton onClick={() => setOpenPostModal(true)}>
                 Create Post
-              </LoadingButton>
+              </LoadingButton> */}
               {!user && (
                 <>
                   <LoadingButton
@@ -85,6 +85,21 @@ const Header = () => {
               )}
               {user && (
                 <>
+                  <LoadingButton
+                    onClick={() => navigate('/daily-and-period-averages')}
+                  >
+                    DailyAndPeriodAveragesPage
+                  </LoadingButton>
+                  <LoadingButton
+                    onClick={() => navigate('/season-data-bar-chart')}
+                  >
+                    SeasonDataBarChart
+                  </LoadingButton>
+
+                  <LoadingButton onClick={() => navigate('/database-info')}>
+                    DatabaseInfo
+                  </LoadingButton>
+
                   <LoadingButton onClick={() => navigate('/profile')}>
                     Profile
                   </LoadingButton>

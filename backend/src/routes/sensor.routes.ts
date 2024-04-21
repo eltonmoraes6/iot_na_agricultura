@@ -28,7 +28,7 @@ router.get('/:season', deserializeUser, requireUser, findSeasonByHandler);
 
 // Add a new route for calculating averages
 router.get(
-  '/info/averages',
+  '/info/daily-and-period-averages',
   deserializeUser,
   requireUser,
   getDailyAndPeriodAveragesHandler

@@ -1,6 +1,5 @@
 import { Box, Container, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
@@ -8,11 +7,9 @@ import FullScreenLoader from '../components/FullScreenLoader';
 import Message from '../components/Message';
 import HumidityGauge from '../components/sensor/HumidityGauge';
 import TemperatureGauge from '../components/sensor/TemperatureGauge';
-import SensorDataBarChart from '../components/sensor/bar';
 import HumidityLineChart from '../components/sensor/humidity';
 import TemperatureLineChart from '../components/sensor/temperature';
 import { useGetAllSensorsQuery } from '../redux/api/sensorApi';
-import { ISensorResponse } from '../redux/api/types';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,31 +18,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
-
-const columns: GridColDef<ISensorResponse>[] = [
-  { field: 'id', headerName: 'ID', width: 300 },
-  {
-    field: 'humidity',
-    headerName: 'Humidity',
-    type: 'number',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'temperature',
-    headerName: 'Temperature',
-    type: 'number',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'season',
-    headerName: 'Season',
-    type: 'string',
-    width: 150,
-    editable: true,
-  },
-];
 
 const HomePage = () => {
   const { isLoading, isError, error, data: sensors } = useGetAllSensorsQuery();
@@ -84,6 +56,7 @@ const HomePage = () => {
         </Box>
       ) : (
         <>
+          {/* LineChart */}
           <Box sx={{ height: 400, width: '100%' }}>
             <Grid
               container
@@ -92,18 +65,18 @@ const HomePage = () => {
             >
               <Grid item xs={6}>
                 <Item>
-                  {' '}
                   <TemperatureLineChart />
                 </Item>
               </Grid>
               <Grid item xs={6}>
                 <Item>
-                  {' '}
                   <HumidityLineChart />
                 </Item>
               </Grid>
             </Grid>
-
+          </Box>
+          {/* Gauge */}
+          <Box sx={{ height: 400, width: '100%' }}>
             <Grid
               container
               rowSpacing={1}
@@ -111,34 +84,15 @@ const HomePage = () => {
             >
               <Grid item xs={6}>
                 <Item>
-                  {' '}
                   <TemperatureGauge />
                 </Item>
               </Grid>
               <Grid item xs={6}>
                 <Item>
-                  {' '}
                   <HumidityGauge />
                 </Item>
               </Grid>
             </Grid>
-
-            <SensorDataBarChart sensorData={sensors} />
-
-            <DataGrid
-              rows={sensors}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 10,
-                  },
-                },
-              }}
-              pageSizeOptions={[5, 10]}
-              checkboxSelection
-              disableRowSelectionOnClick
-            />
           </Box>
         </>
       )}

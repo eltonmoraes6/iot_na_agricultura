@@ -1,18 +1,21 @@
 import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/layout';
-import ProfilePage from './pages/profile.page';
-import HomePage from './pages/home.page';
-import LoginPage from './pages/login.page';
-import RegisterPage from './pages/register.page';
-import UnauthorizePage from './pages/unauthorize.page';
-import RequireUser from './components/requireUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from './components/layout';
+import RequireUser from './components/requireUser';
+import DailyAndPeriodAveragesPage from './pages/DailyAndPeriodAveragesPage';
+import DatabaseInfo from './pages/DatabaseInfo';
+import SeasonDataBarChart from './pages/SeasonDataBarChart';
 import AdminPage from './pages/admin.page';
-import EmailVerificationPage from './pages/verifyemail.page';
-import ResetPasswordPage from './pages/reset-password.page';
 import ForgotPasswordPage from './pages/forgot-password.page';
+import HomePage from './pages/home.page';
+import LoginPage from './pages/login.page';
+import ProfilePage from './pages/profile.page';
+import RegisterPage from './pages/register.page';
+import ResetPasswordPage from './pages/reset-password.page';
+import UnauthorizePage from './pages/unauthorize.page';
+import EmailVerificationPage from './pages/verifyemail.page';
 
 function App() {
   return (
@@ -26,6 +29,25 @@ function App() {
           </Route>
 
           {/* Private Route */}
+
+          <Route element={<RequireUser allowedRoles={['user', 'admin']} />}>
+            <Route
+              path='daily-and-period-averages'
+              element={<DailyAndPeriodAveragesPage />}
+            />
+          </Route>
+
+          <Route element={<RequireUser allowedRoles={['user', 'admin']} />}>
+            <Route
+              path='season-data-bar-chart'
+              element={<SeasonDataBarChart />}
+            />
+          </Route>
+
+          <Route element={<RequireUser allowedRoles={['user', 'admin']} />}>
+            <Route path='database-info' element={<DatabaseInfo />} />
+          </Route>
+
           <Route element={<RequireUser allowedRoles={['user', 'admin']} />}>
             <Route path='profile' element={<ProfilePage />} />
           </Route>

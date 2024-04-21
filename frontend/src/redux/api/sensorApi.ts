@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import customFetchBase from './customFetchBase';
-import { ISensorResponse } from './types';
+import { IDailyAndPeriodAveragesResponse, ISensorResponse } from './types';
 
 export const sensorApi = createApi({
   reducerPath: 'sensorApi',
   baseQuery: customFetchBase,
-  tagTypes: ['Sensors'],
+  tagTypes: ['Sensors', 'DailyAndPeriodAverages'],
   endpoints: (builder) => ({
     getSensor: builder.query<ISensorResponse, string>({
       query(id) {
@@ -36,7 +36,23 @@ export const sensorApi = createApi({
       transformResponse: (results: { data: { sensors: ISensorResponse[] } }) =>
         results.data.sensors,
     }),
+    // Query to get daily and period-based averages
+    getDailyAndPeriodAverages: builder.query<
+      IDailyAndPeriodAveragesResponse,
+      void
+    >({
+      query() {
+        return {
+          url: `/sensors/info/daily-and-period-averages`, // Endpoint for this query
+          credentials: 'include', // Adjust credentials policy as needed
+        };
+      },
+      providesTags: [{ type: 'DailyAndPeriodAverages', id: 'AVERAGES' }],
+      transformResponse: (response: IDailyAndPeriodAveragesResponse) =>
+        response.data,
+    }),
   }),
 });
 
-export const { useGetAllSensorsQuery } = sensorApi;
+export const { useGetAllSensorsQuery, useGetDailyAndPeriodAveragesQuery } =
+  sensorApi;
